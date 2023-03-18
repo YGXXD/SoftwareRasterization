@@ -466,8 +466,3 @@ void Draw3D::Pipeline::TriangleRasterize(VertexOut* Out1, VertexOut* Out2, Verte
 		}
 	}	
 }
-
-namespace Geometry
-{
-	
-}
