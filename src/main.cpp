@@ -138,7 +138,7 @@ void Render(float DeltaTime)
 	render_buffer->Clear(32);	
 	depth_stencil_buffer->Clear(0);
 
-	Matrix4X4 WorldViewProj = Math::MatrixTranslation(Item.Location) * (*CameraMatrix);
+	Matrix4X4 WorldViewProj = Math::MatrixTransition(Item.Location) * (*CameraMatrix);
 
 	Draw3D::BindRenderTarget(render_buffer);
 	Draw3D::BindDepthStencil(depth_stencil_buffer);

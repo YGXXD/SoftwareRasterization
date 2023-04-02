@@ -53,32 +53,42 @@ float Math::InvSqrt(float a)
 	return x;
 }
 
-Vector2 Math::Normalize(Vector2 V)
+Vector2 Math::Normalize(Vector2& V)
 {
 	return InvSqrt(V.x * V.x + V.y * V.y) * V; 
 }
 
-float Math::DotProduct(Vector2 V1, Vector2 V2)
+Vector2 Math::Normalize(Vector2&& V)
+{
+	return InvSqrt(V.x * V.x + V.y * V.y) * V; 
+}
+
+float Math::DotProduct(Vector2& V1, Vector2& V2)
 {
 	return V1 * V2; 
 }
 
-Vector3 Math::Normalize(Vector3 v)
+Vector3 Math::Normalize(Vector3& V)
 {
-	return InvSqrt(v.x * v.x + v.y * v.y + v.z * v.z) * v; 
+	return InvSqrt(V.x * V.x + V.y * V.y + V.z * V.z) * V; 
 }
 
-float Math::DotProduct(Vector3 V1, Vector3 V2)
+Vector3 Math::Normalize(Vector3&& V)
+{
+	return InvSqrt(V.x * V.x + V.y * V.y + V.z * V.z) * V; 
+}
+
+float Math::DotProduct(Vector3& V1, Vector3& V2)
 {
 	return V1 * V2; 
 }
 
-Vector3 Math::CrossProduct(Vector3 V1, Vector3 V2)
+Vector3 Math::CrossProduct(Vector3& V1, Vector3& V2)
 {
 	return V1 ^ V2;
 }
 
-float Math::MatrixDeterminant(Matrix4X4 Matrix)
+float Math::MatrixDeterminant(Matrix4X4& Matrix)
 {
 	return Matrix.m11 * Matrix.m22 * Matrix.m33 * Matrix.m44 +
            Matrix.m11 * Matrix.m23 * Matrix.m34 * Matrix.m42 +
@@ -108,7 +118,7 @@ float Math::MatrixDeterminant(Matrix4X4 Matrix)
 
 }
 
-Matrix4X4 Math::MatrixAdjoint(Matrix4X4 Matrix)
+Matrix4X4 Math::MatrixAdjoint(Matrix4X4& Matrix)
 {
 	float M11 = Matrix.m22 * Matrix.m33 * Matrix.m44 + 
 				Matrix.m23 * Matrix.m34 * Matrix.m42 +
@@ -229,12 +239,12 @@ Matrix4X4 Math::MatrixAdjoint(Matrix4X4 Matrix)
 				 M14, M24, M34, M44);
 }
 
-Matrix4X4 Math::MatrixInverse(Matrix4X4 Matrix)
+Matrix4X4 Math::MatrixInverse(Matrix4X4& Matrix)
 {
 	return 1 / MatrixDeterminant(Matrix) * MatrixAdjoint(Matrix);
 }
 
-Matrix4X4 Math::MatrixTransport(Matrix4X4 Matrix)
+Matrix4X4 Math::MatrixTransport(Matrix4X4& Matrix)
 {
 	return Matrix4X4
 				(Matrix.m11, Matrix.m21, Matrix.m31, Matrix.m41,
@@ -243,7 +253,7 @@ Matrix4X4 Math::MatrixTransport(Matrix4X4 Matrix)
 				 Matrix.m14, Matrix.m24, Matrix.m34, Matrix.m44);
 }
 
-Matrix4X4 Math::MatrixLookAt(Vector3 EyePosition, Vector3 FocusPosition, Vector3 UpDirection)
+Matrix4X4 Math::MatrixLookAt(Vector3& EyePosition, Vector3& FocusPosition, Vector3& UpDirection)
 {
 	Vector3 Z = Normalize(FocusPosition - EyePosition);
 	Vector3 X = Normalize(UpDirection ^ Z);
@@ -266,11 +276,20 @@ Matrix4X4 Math::MatrixPerspectiveFov(float FovAngle, float AspectRatio, float Ne
 				 0, 0, (- NearZ * FarZ) / FarZ - NearZ, 0);
 }
 
-Matrix4X4 Math::MatrixTranslation(Vector3 Location)
+Matrix4X4 Math::MatrixTransition(Vector3& V)
 {
 	return Matrix4X4
-		(1, 0, 0, 0,
-		 0, 1, 0, 0,
-		 0, 0, 1, 0,
-		 Location.x, Location.y, Location.z , 1);
+				(1, 0, 0, 0,
+				 0, 1, 0, 0,
+				 0, 0, 1, 0,
+				 V.x, V.y, V.z, 1);
+}
+
+Matrix4X4 Math::MatrixScale(Vector3& V)
+{
+	return Matrix4X4
+				(V.x, 0, 0, 0,
+				 0, V.y, 0, 0,
+				 0, 0, V.z, 0,
+				 0, 0, 0, 1);	
 }

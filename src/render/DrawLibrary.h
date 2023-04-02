@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DRAW_LIBRARY_H
+#define DRAW_LIBRARY_H
+
 #include <cstdint>
 #include <vector>
 #include "../math/Vector3.h"
@@ -118,3 +120,5 @@ namespace Geometry
 		return Box;
 	}
 }
+
+#endif

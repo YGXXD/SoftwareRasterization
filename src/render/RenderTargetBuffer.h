@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RENDER_TARGET_BUFFER_H
+#define RENDER_TARGET_BUFFER_H
+
 #include <cstdint>
 
 class RenderTargetBuffer
@@ -20,3 +22,5 @@ private:
 
 	uint32_t* buffer;
 };
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DEPTH_STENCIL_BUFFER_H
+#define DEPTH_STENCIL_BUFFER_H
+
 #include <cstdint>
 
 class DepthStencilBuffer
@@ -21,3 +23,5 @@ private:
 	// 前24位Depth,后8位Stencil
 	uint32_t* buffer;
 };
+
+#endif
