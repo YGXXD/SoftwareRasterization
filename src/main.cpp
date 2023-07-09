@@ -25,7 +25,6 @@ float R = 15;
 float A = 0;
 float B = 0;
 
-
 struct RenderItem
 {
 	Vector3 Location;
@@ -58,23 +57,6 @@ int main()
 				is_quit = true;
 			if(event.type == SDL_KEYDOWN)
 			{
-				if(event.key.keysym.sym == SDLK_w)
-				{
-					A =  Math::Clamp<float>(-1.5, 1.5, A + 0.1);
-				}		
-				if(event.key.keysym.sym == SDLK_s)
-				{
-					A =  Math::Clamp<float>(-1.5, 1.5, A - 0.1);
-				}		
-				if(event.key.keysym.sym == SDLK_d)
-				{
-					B += 0.1;
-				}		
-				if(event.key.keysym.sym == SDLK_a)
-				{
-					B -= 0.1; 
-				}
-
 				if(event.key.keysym.sym == SDLK_i)
 				{
 					R = Math::Clamp<float>(10, 20, R + 1); 
@@ -124,7 +106,12 @@ int main()
 void Update(float DeltaTime) 
 {
 	B += DeltaTime;
-	Vector3 EyePosition(R * Math::Cos(A) * Math::Cos(B), R * Math::Cos(A) * Math::Sin(B), R * Math::Sin(A));
+	A += DeltaTime;
+
+	float Pitch = Math::Sin(A) * 1.5707963; 
+	float Yaw = B;
+
+	Vector3 EyePosition(R * Math::Cos(Pitch) * Math::Cos(Yaw), R * Math::Cos(Pitch) * Math::Sin(Yaw), R * Math::Sin(Pitch));
 	Vector3 FocusPosition(0, 0, 0);
 	Vector3 UpDirection(0, 0, 1);
 
