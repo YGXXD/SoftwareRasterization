@@ -9,6 +9,3 @@ find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(SDL2 sdl2 REQUIRED IMPORTED_TARGET)
 target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::SDL2)
-
-pkg_check_modules(SDL2_IMAGE sdl2_image REQUIRED IMPORTED_TARGET)
-target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::SDL2_IMAGE)
